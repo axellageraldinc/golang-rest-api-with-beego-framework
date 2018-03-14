@@ -7,7 +7,7 @@ import (
 	"axell_first_rest/response"
 )
 
-func GetAllUser() map[string]*models.User {
+func GetAllUser() (list []orm.Params) {
 	return repository.GetAllUser()
 }
 

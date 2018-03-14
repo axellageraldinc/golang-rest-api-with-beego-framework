@@ -6,18 +6,14 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-var (
-	//ormObject orm.Ormer
-)
-
-func init()  {
-	//ormObject = orm.NewOrm()
-	//ormObject.Using("default")
-	//orm.Debug = true
-}
-
-func GetAllUser() map[string]*models.User {
-	return models.UserList
+func GetAllUser() (list []orm.Params) {
+	ormObject := orm.NewOrm()
+	num, err := ormObject.Raw("SELECT name, age FROM user").Values(&list)
+	if err == nil && num > 0 {
+		return list
+	} else {
+		return nil
+	}
 }
 
 func GetOneUser(userId int) (user models.User, err error) {
